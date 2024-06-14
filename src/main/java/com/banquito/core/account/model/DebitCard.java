@@ -1,6 +1,7 @@
 package com.banquito.core.account.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
@@ -41,7 +42,7 @@ public class DebitCard implements Serializable {
     private String ccv;
     @Temporal(TemporalType.DATE)
     @Column(name = "EXPIRATION_DATE", nullable = false)
-    private Timestamp expirationDate;
+    private Date expirationDate;
     @Column(name = "CARDHOLDER_NAME", length = 50, nullable = false)
     private String cardholderName;
     @Column(name = "CARD_UNIQUE_KEY", length = 32, nullable = false)

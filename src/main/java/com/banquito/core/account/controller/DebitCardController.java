@@ -20,6 +20,7 @@ public class DebitCardController {
             DebitCard debitCard = debitCardService.obtainDebitCard(cardNumber);
             return new ResponseEntity<>(debitCard, HttpStatus.OK);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
