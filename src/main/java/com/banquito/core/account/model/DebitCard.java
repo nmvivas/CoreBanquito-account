@@ -2,7 +2,6 @@ package com.banquito.core.account.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
