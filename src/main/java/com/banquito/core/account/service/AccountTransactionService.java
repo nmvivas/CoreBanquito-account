@@ -30,7 +30,7 @@ public class AccountTransactionService {
         AccountTransaction transaction = new AccountTransaction();
         transaction.setAccount(new Account(accountId)); 
         transaction.setCodeChannel(codeChannel);
-        transaction.setUniqueKey(uniqueKey);
+        transaction.setUniqueKey(uniqueKey);//ESTE DEBE SER GENERADO ya sea por back o front y unico
         transaction.setTransactionType(transactionType);
         transaction.setTransactionSubtype(transactionSubtype);
         transaction.setReference(reference);
@@ -40,11 +40,11 @@ public class AccountTransactionService {
         transaction.setDebitorBankCode(debtorBankCode);
         transaction.setDebitorAccount(debtorAccount);
         transaction.setCreationDate(Timestamp.valueOf(LocalDateTime.now())); 
-        transaction.setBookingDate(Timestamp.valueOf(bookingDate)); 
-        transaction.setValueDate(Timestamp.valueOf(valueDate)); 
+        transaction.setBookingDate(Timestamp.valueOf(bookingDate)); //ESTO LO DEBES MANDAR TU AL CREAR
+        transaction.setValueDate(Timestamp.valueOf(valueDate)); //ESTO LO DEBES MANDAR TU IGUAL
         transaction.setApplyTax(applyTax);
         transaction.setParentTransactionKey(parentTransactionKey);
-        transaction.setState(state);
+        transaction.setState(state);//esto yo te mando el executed y tu controlas el estado en back
         transaction.setNotes(notes);
 
         // Actualizar el saldo de la cuenta dependiendo del tipo de transacción (crédito o débito)
@@ -60,7 +60,7 @@ public class AccountTransactionService {
         BigDecimal currentBalance = account.getCurrentBalance();
         BigDecimal transactionAmount = transaction.getAmount();
 
-        if ("DEB".equals(transaction.getTransactionType())) { // Transacción de débito
+        if ("DEB".equals(transaction.getTransactionType())) { // Transacción de débito la comparacion debe ser alrevez no con el "DEB"
             BigDecimal newBalance = currentBalance.subtract(transactionAmount);
             account.setCurrentBalance(newBalance);
         } else if ("CRE".equals(transaction.getTransactionType())) { // Transacción de crédito
