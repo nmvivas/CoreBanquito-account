@@ -1,7 +1,10 @@
 package com.banquito.core.account.controller;
 
+import com.banquito.core.account.controller.dto.AccountDTO;
 import com.banquito.core.account.model.Account;
 import com.banquito.core.account.service.AccountService;
+import com.banquito.core.account.util.mapper.AccountMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,21 +16,33 @@ import org.springframework.web.bind.annotation.*;
 public class AccountController {
 
     @Autowired
-    private AccountService accountService;
+    private final AccountMapper accountMapper;
+    private AccountService service;
 
-    @GetMapping("/by-unique-code")
-    public ResponseEntity<Account> getAccountByCodeUniqueAccount(@RequestParam String codeUniqueAccount) {
+    public AccountController(AccountMapper accountMapper, AccountService service) {
+        this.accountMapper = accountMapper;
+        this.service = service;
+    }
+
+    @GetMapping("/by-unique-code/{codeUniqueAccount}")
+    public ResponseEntity<AccountDTO> getAccountByCodeUniqueAccount(@PathVariable String codeUniqueAccount) {
         try {
-            Account account = accountService.obtainAccount(codeUniqueAccount);
-            return new ResponseEntity<>(account, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            System.out.println("Va a buscar una cuenta por codigo unico:"+codeUniqueAccount);
+            return ResponseEntity.ok(this.accountMapper.toDTO(this.service.obtainAccount(codeUniqueAccount)));
+        } catch (RuntimeException rte) {
+            return ResponseEntity.notFound().build();
+
         }
     }
     
     @PostMapping
-    public ResponseEntity<Account> createOrUpdateAccount(@RequestBody Account account) {
-        Account savedAccount = accountService.saveAccount(account);
-        return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
+    public ResponseEntity<AccountDTO> createOrUpdateAccount(@RequestBody AccountDTO dto) {
+        try {
+            AccountDTO dtoAC = this.service.create(dto);
+            return new ResponseEntity<>(dtoAC, HttpStatus.CREATED);
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

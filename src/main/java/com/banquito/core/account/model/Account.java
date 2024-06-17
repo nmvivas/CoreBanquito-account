@@ -3,6 +3,8 @@ package com.banquito.core.account.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,13 +48,13 @@ public class Account implements Serializable {
     private String state;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATION_DATE", nullable = false)
-    private Timestamp creationDate;
+    private LocalDateTime creationDate;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ACTIVATION_DATE")
-    private Timestamp activationDate;
+    private LocalDateTime activationDate;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_MODIFIED_DATE", nullable = false)
-    private Timestamp lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
     @Column(name = "CURRENT_BALANCE", precision = 17, scale = 2, nullable = false)
     private BigDecimal currentBalance;
     @Column(name = "AVAILABLE_BALANCE", precision = 17, scale = 2, nullable = false)

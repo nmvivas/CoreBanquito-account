@@ -1,7 +1,10 @@
 package com.banquito.core.account.controller;
 
+import com.banquito.core.account.controller.dto.DebitCardDTO;
 import com.banquito.core.account.model.DebitCard;
 import com.banquito.core.account.service.DebitCardService;
+import com.banquito.core.account.util.mapper.DebitCardMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,16 +16,21 @@ import org.springframework.web.bind.annotation.*;
 public class DebitCardController {
 
     @Autowired
-    private DebitCardService debitCardService;
+    private final DebitCardMapper debitCardMapper;
+    private DebitCardService service;
 
-    @GetMapping("/by-card-number")
-    public ResponseEntity<DebitCard> getDebitCardByCardNumber(@RequestParam String cardNumber) {
+    public DebitCardController(DebitCardMapper debitCardMapper, DebitCardService service){
+        this.debitCardMapper = debitCardMapper;
+        this.service = service;
+    }
+    @GetMapping("/by-card-number/{cardNumber}")
+    public ResponseEntity<DebitCardDTO> getDebitCardByCardNumber(@PathVariable String cardNumber) {
         try {
-            DebitCard debitCard = debitCardService.obtainDebitCard(cardNumber);
-            return new ResponseEntity<>(debitCard, HttpStatus.OK);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            System.out.println("Va a buscar una tarjeta por el numero:"+cardNumber);
+            return ResponseEntity.ok(this.debitCardMapper.toDTO(this.service.obtainDebitCard(cardNumber)));
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            return ResponseEntity.notFound().build();
         }
     }
 }
