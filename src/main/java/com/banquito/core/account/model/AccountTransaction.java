@@ -44,15 +44,15 @@ public class AccountTransaction implements Serializable {
     private String transactionSubtype;
     @Column(name = "REFERENCE", length = 50, nullable = false)
     private String reference;
-    @Column(name = "AMOUNT", precision = 17, scale = 2, nullable = false)
-    private BigDecimal amount;
+    @Column(name = "AMMOUNT", precision = 17, scale = 2, nullable = false)
+    private BigDecimal ammount;
     @Column(name = "CREDITOR_BANK_CODE", length = 20)
     private String creditorBankCode;
     @Column(name = "CREDITOR_ACCOUNT", length = 16)
     private String creditorAccount;
-    @Column(name = "DEBITOR_BANK_CODE", length = 20)
+    @Column(name = "DEBTOR_BANK_CODE", length = 20)
     private String debitorBankCode;
-    @Column(name = "DEBITOR_ACCOUNT", length = 16)
+    @Column(name = "DEBTOR_ACCOUNT", length = 16)
     private String debitorAccount;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATION_DATE", nullable = false)
