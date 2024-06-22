@@ -8,6 +8,7 @@ import lombok.Value;
 @Builder
 public class AccountDTO {
     private Integer id;
+    private Integer clientId;
     private String codeUniqueAccount;
     private String codeInternalAccount;
     private String codeInternationalAccount;
