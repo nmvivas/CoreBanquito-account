@@ -31,6 +31,19 @@ public class AccountService {
         }
     }
 
+    public Account obtainAccountByClientId(Integer clientId) {
+        Optional<Account> accountOpt = this.repository.findByClientId(clientId);
+        if (accountOpt.isPresent()) {
+            return accountOpt.get();
+        } else {
+            throw new RuntimeException("No existe la cuenta con el ID " + clientId);
+        }
+    }
+
+
+
+
+
     public AccountDTO create(AccountDTO dto) {
 
         Optional <Account> codeUnique = this.repository.findByCodeUniqueAccount(dto.getCodeUniqueAccount());
