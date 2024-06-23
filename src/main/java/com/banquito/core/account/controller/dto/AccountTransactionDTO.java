@@ -10,7 +10,6 @@ import lombok.Value;
 @Value
 @Builder
 public class AccountTransactionDTO {
-    //private Integer id;
     private Integer accountId;
     private String codeChannel;
     private String uniqueKey;

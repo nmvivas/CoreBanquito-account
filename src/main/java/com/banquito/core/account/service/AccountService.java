@@ -2,6 +2,9 @@ package com.banquito.core.account.service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.springframework.stereotype.Service;
 
 import com.banquito.core.account.controller.dto.AccountDTO;
@@ -29,15 +32,17 @@ public class AccountService {
     }
 
     public AccountDTO create(AccountDTO dto) {
-        //TODO: Generacion de codigo unico de cuenta
-        //TODO: Generacion de codigo interno de cuenta
-        //TODO: Generacion de codigo internacional de cunta 
-        //TODO: Generacion de numero de cuenta 
 
-        Optional <Account> code_unique = this.repository.findByCodeUniqueAccount(dto.getCodeUniqueAccount());
-        if(code_unique!= null){
-            throw new RuntimeException("codigo unico repetido");
+        Optional <Account> codeUnique = this.repository.findByCodeUniqueAccount(dto.getCodeUniqueAccount());
+        if (codeUnique.isPresent()) {
+            throw new RuntimeException("Código único repetido");
         }
+        // SE DEJA ESTE PEDAZO DE CODIGO PARA CUANDO SE CREE DTO de envio
+        // if (dto.getCodeProductType() == null || dto.getCodeProduct() == null) {
+        //     throw new RuntimeException("CodeProductType y CodeProduct son obligatorios");
+        // }
+        dto = generateAccountCodesAndNumbers(dto);
+
         Account account = this.accountMapper.toPersistence(dto);
         account.setCreationDate(LocalDateTime.now());
         account.setLastModifiedDate(LocalDateTime.now());
@@ -48,6 +53,37 @@ public class AccountService {
 
     public Account saveAccount(Account account) {
         return repository.save(account);
+    }
+
+    private AccountDTO generateAccountCodesAndNumbers(AccountDTO dto) {
+        return AccountDTO.builder()
+            .id(dto.getId())
+            .clientId(dto.getClientId())
+            .codeUniqueAccount(generateUniqueAccountCode())
+            .codeInternalAccount(generateInternalAccountCode())
+            .codeInternationalAccount(generateInternationalAccountCode())
+            .number(generateAccountNumber())
+            .state("INA")
+            .currentBalance(dto.getCurrentBalance())
+            .availableBalance(dto.getAvailableBalance())
+            .blockedBalance(dto.getBlockedBalance())
+            .build();
+    }
+
+    private String generateUniqueAccountCode() {
+        return UUID.randomUUID().toString().replace("-", "").substring(0, 32).toUpperCase();
+    }
+
+    private String generateInternalAccountCode() {
+        return String.format("%010d", ThreadLocalRandom.current().nextInt(1, 1000000000));
+    }
+
+    private String generateInternationalAccountCode() {
+        return "INT" + String.format("%013d", ThreadLocalRandom.current().nextLong(1, 10000000000000L));
+    }
+
+    private String generateAccountNumber() {
+        return String.format("%013d", ThreadLocalRandom.current().nextLong(1, 10000000000000L));
     }
 
 }

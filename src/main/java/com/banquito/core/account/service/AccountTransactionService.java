@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -139,5 +140,10 @@ public class AccountTransactionService {
 
         // Guardar la cuenta actualizada
         accountRepository.save(account);
+    }
+
+    public List<AccountTransaction> findTransactionsByCodeUniqueAccount(String codeUniqueAccount) {
+        List<AccountTransaction> transactions = transactionRepository.findByAccount_CodeUniqueAccount(codeUniqueAccount);
+        return transactions; 
     }
 }

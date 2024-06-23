@@ -3,22 +3,27 @@ package com.banquito.core.account.controller;
 import com.banquito.core.account.controller.dto.AccountTransactionDTO;
 import com.banquito.core.account.model.AccountTransaction;
 import com.banquito.core.account.service.AccountTransactionService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.banquito.core.account.util.mapper.AccountTransactionMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET, RequestMethod.POST,
         RequestMethod.PUT })
 @RestController
-@RequestMapping("/api/account-transactions") // quitar api
+@RequestMapping("account-transactions") // quitar api
 public class AccountTransactionController {
 
-    @Autowired
+    
     private AccountTransactionService transactionService;
+    private final AccountTransactionMapper transactionMapper;
+    
+
+    public AccountTransactionController(AccountTransactionService transactionService,
+            AccountTransactionMapper transactionMapper) {
+        this.transactionService = transactionService;
+        this.transactionMapper = transactionMapper;
+    }
 
     // Endpoint para crear una nueva transacción
     @PostMapping
@@ -42,6 +47,10 @@ public class AccountTransactionController {
          */
     }
 
-    // Otros endpoints según sea necesario (por ejemplo, obtener transacciones por
-    // cuenta)
+    @GetMapping("/transactions")
+    public ResponseEntity<List<AccountTransactionDTO>> getTransactionsByCodeUniqueAccount(@RequestParam String codeUniqueAccount) {
+        List<AccountTransaction> transactions = transactionService.findTransactionsByCodeUniqueAccount(codeUniqueAccount);
+        List<AccountTransactionDTO> transactionDTOs = transactionMapper.toDTOList(transactions);
+        return ResponseEntity.ok(transactionDTOs);
+    }
 }
