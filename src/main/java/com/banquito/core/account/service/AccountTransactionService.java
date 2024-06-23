@@ -37,7 +37,7 @@ public class AccountTransactionService {
             transaction1.setBookingDate(Timestamp.valueOf(LocalDateTime.now()));
             transaction1.setValueDate(Timestamp.valueOf(LocalDateTime.now()));
             transaction1.setApplyTax(false);
-            updateAccountBalance(account,transaction1);
+            updateAccountBalance(account, transaction1);
             return transactionRepository.save(transaction1);
 
         }
@@ -53,18 +53,21 @@ public class AccountTransactionService {
             BigDecimal newCBalance = currentBalance.subtract(transactionammount);
             BigDecimal newABalance = aviableBalance.subtract(transactionammount);
             account.setCurrentBalance(newCBalance);
-            account.setAvailableBalance(newABalance);;
+            account.setAvailableBalance(newABalance);
+            ;
         } else if ("CRE".equals(transaction.getTransactionType())) {
             BigDecimal newBalance = currentBalance.add(transactionammount);
             BigDecimal newABalance = aviableBalance.add(transactionammount);
             account.setCurrentBalance(newBalance);
-            account.setAvailableBalance(newABalance);;
+            account.setAvailableBalance(newABalance);
+            ;
         }
         accountRepository.save(account);
     }
 
     public List<AccountTransaction> findTransactionsByCodeUniqueAccount(String codeUniqueAccount) {
-        List<AccountTransaction> transactions = transactionRepository.findByAccount_CodeUniqueAccount(codeUniqueAccount);
-        return transactions; 
+        List<AccountTransaction> transactions = transactionRepository
+                .findByAccount_CodeUniqueAccount(codeUniqueAccount);
+        return transactions;
     }
 }

@@ -40,7 +40,7 @@ public class AccountService {
 
     public AccountDTO create(AccountDTO dto) {
 
-        Optional <Account> codeUnique = this.repository.findByCodeUniqueAccount(dto.getCodeUniqueAccount());
+        Optional<Account> codeUnique = this.repository.findByCodeUniqueAccount(dto.getCodeUniqueAccount());
         if (codeUnique.isPresent()) {
             throw new RuntimeException("Código único repetido");
         }
@@ -60,17 +60,17 @@ public class AccountService {
 
     private AccountDTO generateAccountCodesAndNumbers(AccountDTO dto) {
         return AccountDTO.builder()
-            .id(dto.getId())
-            .clientId(dto.getClientId())
-            .codeUniqueAccount(generateUniqueAccountCode())
-            .codeInternalAccount(generateInternalAccountCode())
-            .codeInternationalAccount(generateInternationalAccountCode())
-            .number(generateAccountNumber())
-            .state("INA")
-            .currentBalance(dto.getCurrentBalance())
-            .availableBalance(dto.getAvailableBalance())
-            .blockedBalance(dto.getBlockedBalance())
-            .build();
+                .id(dto.getId())
+                .clientId(dto.getClientId())
+                .codeUniqueAccount(generateUniqueAccountCode())
+                .codeInternalAccount(generateInternalAccountCode())
+                .codeInternationalAccount(generateInternationalAccountCode())
+                .number(generateAccountNumber())
+                .state("INA")
+                .currentBalance(dto.getCurrentBalance())
+                .availableBalance(dto.getAvailableBalance())
+                .blockedBalance(dto.getBlockedBalance())
+                .build();
     }
 
     private String generateUniqueAccountCode() {

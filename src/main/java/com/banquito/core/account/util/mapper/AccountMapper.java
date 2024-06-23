@@ -8,6 +8,8 @@ import com.banquito.core.account.model.Account;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AccountMapper {
+
     AccountDTO toDTO(Account account);
+
     Account toPersistence(AccountDTO dto);
 }

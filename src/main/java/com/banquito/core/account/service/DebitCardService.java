@@ -14,14 +14,12 @@ public class DebitCardService {
         this.repository = repository;
     }
 
-    public DebitCard obtainDebitCard(String cardNumber){
-        Optional <DebitCard> cardOpt = this.repository.findByCardNumber(cardNumber);
-        if(cardOpt.isPresent()){
+    public DebitCard obtainDebitCard(String cardNumber) {
+        Optional<DebitCard> cardOpt = this.repository.findByCardNumber(cardNumber);
+        if (cardOpt.isPresent()) {
             return cardOpt.get();
-        }
-        else{
-            throw new RuntimeException("No existe la tarjeta con el numero"+cardNumber);
+        } else {
+            throw new RuntimeException("No existe la tarjeta con el numero" + cardNumber);
         }
     }
-
 }

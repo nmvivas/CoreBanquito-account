@@ -29,21 +29,29 @@ public class DebitCard implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DEBIT_CARD_ID", nullable = false)
     private Integer id;
+
     @Column(name = "CLIENT_ID", nullable = false)
     private Integer clientId;
+
     @Column(name = "ACCOUNT_ID", nullable = false)
     private Integer accountId;
+
     @Column(name = "CARD_NUMBER", length = 20, nullable = false)
     private String cardNumber;
+
     @Column(name = "CCV", length = 3, nullable = false)
     private String ccv;
+
     @Temporal(TemporalType.DATE)
     @Column(name = "EXPIRATION_DATE", nullable = false)
     private Date expirationDate;
+
     @Column(name = "CARDHOLDER_NAME", length = 50, nullable = false)
     private String cardholderName;
+
     @Column(name = "CARD_UNIQUE_KEY", length = 32, nullable = false)
     private String cardUniqueKey;
+
     @Column(name = "PIN", length = 64, nullable = false)
     private String pin;
 

@@ -28,37 +28,52 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ACCOUNT_ID", nullable = false)
     private Integer id;
+
     @Column(name = "CODE_PRODUCT_TYPE", length = 20, nullable = false)
     private String codeProductType;
+
     @Column(name = "CODE_PRODUCT", length = 30, nullable = false)
     private String codeProduct;
+
     @Column(name = "CLIENT_ID", nullable = false)
     private Integer clientId;
+
     @Column(name = "CODE_UNIQUE_ACCOUNT", length = 32, nullable = false)
     private String codeUniqueAccount;
+
     @Column(name = "CODE_INTERNAL_ACCOUNT", length = 10, nullable = false)
     private String codeInternalAccount;
+
     @Column(name = "CODE_INTERNATIONAL_ACCOUNT", length = 16, nullable = false)
     private String codeInternationalAccount;
+
     @Column(name = "NUMBER", length = 13)
     private String number;
+
     @Column(name = "STATE", length = 3, nullable = false)
     private String state;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATION_DATE", nullable = false)
     private LocalDateTime creationDate;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ACTIVATION_DATE")
     private LocalDateTime activationDate;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "LAST_MODIFIED_DATE", nullable = false)
     private LocalDateTime lastModifiedDate;
+
     @Column(name = "CURRENT_BALANCE", precision = 17, scale = 2, nullable = false)
     private BigDecimal currentBalance;
+
     @Column(name = "AVAILABLE_BALANCE", precision = 17, scale = 2, nullable = false)
     private BigDecimal availableBalance;
+
     @Column(name = "BLOCKED_BALANCE", precision = 17, scale = 2, nullable = false)
     private BigDecimal blockedBalance;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CLOSED_DATE")
     private Timestamp closeDate;

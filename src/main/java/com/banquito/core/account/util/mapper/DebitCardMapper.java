@@ -8,5 +8,6 @@ import com.banquito.core.account.model.DebitCard;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface DebitCardMapper {
+
     DebitCardDTO toDTO(DebitCard debitCard);
 }

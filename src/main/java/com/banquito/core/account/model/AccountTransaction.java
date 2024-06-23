@@ -30,43 +30,61 @@ public class AccountTransaction implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ACCOUNT_TRANSACTION_ID", nullable = false)
     private Integer id;
+
     @Column(name = "ACCOUNT_ID", nullable = false)
     private Integer accountId;
+
     @Column(name = "CODE_CHANNEL", length = 10, nullable = false)
     private String codeChannel;
+
     @Column(name = "UNIQUE_KEY", length = 32, nullable = false)
     private String uniqueKey;
+
     @Column(name = "TRANSACTION_TYPE", length = 3, nullable = false)
     private String transactionType;
+
     @Column(name = "TRANSACTION_SUBTYPE", length = 12, nullable = false)
     private String transactionSubtype;
+
     @Column(name = "REFERENCE", length = 50, nullable = false)
     private String reference;
+
     @Column(name = "AMMOUNT", precision = 17, scale = 2, nullable = false)
     private BigDecimal ammount;
+
     @Column(name = "CREDITOR_BANK_CODE", length = 20)
     private String creditorBankCode;
+
     @Column(name = "CREDITOR_ACCOUNT", length = 16)
     private String creditorAccount;
+
     @Column(name = "DEBTOR_BANK_CODE", length = 20)
     private String debitorBankCode;
+
     @Column(name = "DEBTOR_ACCOUNT", length = 16)
     private String debitorAccount;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "CREATION_DATE", nullable = false)
     private Timestamp creationDate;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "BOOKING_DATE", nullable = false)
     private Timestamp bookingDate;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "VALUE_DATE", nullable = false)
     private Timestamp valueDate;
+
     @Column(name = "APPLY_TAX", nullable = false)
     private Boolean applyTax;
+
     @Column(name = "PARENT_TRANSACTION_KEY", length = 32)
     private String parentTransactionKey;
+
     @Column(name = "STATE", length = 3, nullable = false)
     private String state;
+
     @Column(name = "NOTES", length = 200)
     private String notes;
 

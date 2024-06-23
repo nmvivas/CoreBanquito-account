@@ -9,7 +9,10 @@ import com.banquito.core.account.model.AccountTransaction;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AccountTransactionMapper {
+
     AccountTransactionDTO toDTO(AccountTransaction accountTransaction);
+
     AccountTransaction toPersistence(AccountTransactionDTO accountTransactionDTO);
+
     List<AccountTransactionDTO> toDTOList(List<AccountTransaction> entities);
 }
