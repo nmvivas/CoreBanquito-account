@@ -28,6 +28,19 @@ public class AccountService {
         }
     }
 
+    public Account obtainAccountByClientId(Integer clientId) {
+        Optional<Account> accountOpt = this.repository.findByClientId(clientId);
+        if (accountOpt.isPresent()) {
+            return accountOpt.get();
+        } else {
+            throw new RuntimeException("No existe la cuenta con el ID " + clientId);
+        }
+    }
+
+
+
+
+
     public AccountDTO create(AccountDTO dto) {
         //TODO: Generacion de codigo unico de cuenta
         //TODO: Generacion de codigo interno de cuenta
@@ -35,8 +48,8 @@ public class AccountService {
         //TODO: Generacion de numero de cuenta 
 
         Optional <Account> code_unique = this.repository.findByCodeUniqueAccount(dto.getCodeUniqueAccount());
-        if(code_unique!= null){
-            throw new RuntimeException("codigo unico repetido");
+        if (code_unique.isPresent()) {
+            throw new RuntimeException("Ya existe una cuenta con el codigo unico" + dto.getCodeUniqueAccount());
         }
         Account account = this.accountMapper.toPersistence(dto);
         account.setCreationDate(LocalDateTime.now());

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/accounts")
 public class AccountController {
 
-    @Autowired
+
     private final AccountMapper accountMapper;
-    private AccountService service;
+    private final AccountService service;
 
     public AccountController(AccountMapper accountMapper, AccountService service) {
         this.accountMapper = accountMapper;
@@ -34,7 +34,19 @@ public class AccountController {
 
         }
     }
-    
+
+    @GetMapping("/client-id/{clientId}")
+    public ResponseEntity<AccountDTO> getAccountByClientId(@PathVariable Integer clientId) {
+        try {
+            System.out.println("Va a buscar una cuenta por id del cliente:"+ clientId);
+            return ResponseEntity.ok(this.accountMapper.toDTO(this.service.obtainAccountByClientId(clientId)));
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            return ResponseEntity.notFound().build();
+
+        }
+    }
+
     @PostMapping
     public ResponseEntity<AccountDTO> createOrUpdateAccount(@RequestBody AccountDTO dto) {
         try {
@@ -46,3 +58,4 @@ public class AccountController {
         }
     }
 }
+
