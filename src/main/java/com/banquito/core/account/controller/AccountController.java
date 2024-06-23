@@ -1,11 +1,8 @@
 package com.banquito.core.account.controller;
 
 import com.banquito.core.account.controller.dto.AccountDTO;
-import com.banquito.core.account.model.Account;
 import com.banquito.core.account.service.AccountService;
 import com.banquito.core.account.util.mapper.AccountMapper;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
-
-
     private final AccountMapper accountMapper;
     private final AccountService service;
 

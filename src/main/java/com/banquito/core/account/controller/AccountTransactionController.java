@@ -14,10 +14,8 @@ import java.util.List;
 @RequestMapping("account-transactions") // quitar api
 public class AccountTransactionController {
 
-    
     private AccountTransactionService transactionService;
     private final AccountTransactionMapper transactionMapper;
-    
 
     public AccountTransactionController(AccountTransactionService transactionService,
             AccountTransactionMapper transactionMapper) {
@@ -25,7 +23,6 @@ public class AccountTransactionController {
         this.transactionMapper = transactionMapper;
     }
 
-    // Endpoint para crear una nueva transacción
     @PostMapping
     public ResponseEntity<AccountTransaction> createTransaction(@RequestBody AccountTransactionDTO dto) {
         try {
@@ -35,16 +32,6 @@ public class AccountTransactionController {
             rte.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
-        /*
-         * AccountTransaction transaction = transactionService.processTransaction(
-         * accountId, codeChannel, uniqueKey, transactionType, transactionSubtype,
-         * reference, ammount,
-         * creditorBankCode, creditorAccount, debtorBankCode, debtorAccount,
-         * bookingDate, valueDate,
-         * applyTax, parentTransactionKey, state, notes);
-         * 
-         * return new ResponseEntity<>(transaction, HttpStatus.CREATED);
-         */
     }
 
     @GetMapping("/transactions")

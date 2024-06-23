@@ -2,8 +2,6 @@ package com.banquito.core.account.controller.dto;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
-
 import lombok.Builder;
 import lombok.Value;
 

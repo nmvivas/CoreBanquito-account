@@ -2,7 +2,6 @@ package com.banquito.core.account.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -4,9 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
-
 import org.springframework.stereotype.Service;
-
 import com.banquito.core.account.controller.dto.AccountDTO;
 import com.banquito.core.account.model.Account;
 import com.banquito.core.account.repository.AccountRepository;
@@ -40,22 +38,14 @@ public class AccountService {
         }
     }
 
-
-
-
-
     public AccountDTO create(AccountDTO dto) {
 
         Optional <Account> codeUnique = this.repository.findByCodeUniqueAccount(dto.getCodeUniqueAccount());
         if (codeUnique.isPresent()) {
             throw new RuntimeException("Código único repetido");
         }
-        // SE DEJA ESTE PEDAZO DE CODIGO PARA CUANDO SE CREE DTO de envio
-        // if (dto.getCodeProductType() == null || dto.getCodeProduct() == null) {
-        //     throw new RuntimeException("CodeProductType y CodeProduct son obligatorios");
-        // }
-        dto = generateAccountCodesAndNumbers(dto);
 
+        dto = generateAccountCodesAndNumbers(dto);
         Account account = this.accountMapper.toPersistence(dto);
         account.setCreationDate(LocalDateTime.now());
         account.setLastModifiedDate(LocalDateTime.now());

@@ -1,7 +1,6 @@
 package com.banquito.core.account.controller.dto;
 
 import java.sql.Date;
-
 import lombok.Builder;
 import lombok.Value;
 
