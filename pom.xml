@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.banquito.core</groupId>
 	<artifactId>account</artifactId>
-	<version>V1.0</version>
+	<version>V1.1</version>
 	<name>account</name>
 	<description>Account APIs REST</description>
 	<properties>
