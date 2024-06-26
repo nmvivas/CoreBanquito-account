@@ -1,8 +1,12 @@
 package com.banquito.core.account.controller;
 
 import com.banquito.core.account.controller.dto.AccountDTO;
+import com.banquito.core.account.model.Account;
 import com.banquito.core.account.service.AccountService;
 import com.banquito.core.account.util.mapper.AccountMapper;
+
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -48,6 +52,17 @@ public class AccountController {
             rte.printStackTrace();
             return ResponseEntity.notFound().build();
 
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AccountDTO>> getAllAccounts() {
+        try {
+            List<AccountDTO> accounts = this.service.obtainAllAccounts();
+            return ResponseEntity.ok(accounts);
+        } catch (RuntimeException rte) {
+            rte.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

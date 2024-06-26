@@ -1,9 +1,12 @@
 package com.banquito.core.account.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import com.banquito.core.account.controller.dto.AccountDTO;
 import com.banquito.core.account.model.Account;
@@ -56,6 +59,11 @@ public class AccountService {
 
     public Account saveAccount(Account account) {
         return repository.save(account);
+    }
+
+    public List<AccountDTO> obtainAllAccounts() {
+        List<Account> accounts = this.repository.findAll();
+        return accounts.stream().map(accountMapper::toDTO).collect(Collectors.toList());
     }
 
     private AccountDTO generateAccountCodesAndNumbers(AccountDTO dto) {
